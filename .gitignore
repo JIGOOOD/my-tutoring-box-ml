@@ -1,0 +1,38 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+venv/
+env/
+.venv/
+ENV/
+
+# VSCode, PyCharm, etc.
+.vscode/
+.idea/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Model artifacts
+*.pkl
+*.joblib
+model/*.pkl
+
+# Logs and cache
+*.log
+*.cache
+*.egg-info/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Python dotenv / credentials
+.env
+.env.*
+
+# pip result
+pip-log.txt
