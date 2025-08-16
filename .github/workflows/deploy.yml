@@ -27,4 +27,7 @@ jobs:
       - run: |
           sudo docker stop ml || true
           sudo docker rm ml || true
-          sudo docker run -d --name ml -p 8000:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/ml:latest
+          sudo docker run -d --name ml \
+            -p 8000:8000 \
+            -v /home/ubuntu/model:/code/model \
+            ${{ secrets.DOCKER_HUB_USERNAME }}/ml:latest

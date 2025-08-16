@@ -16,6 +16,11 @@ ENV/
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/
 
+# Model artifacts
+*.pkl
+*.joblib
+model/*.pkl
+
 # Logs and cache
 *.log
 *.cache
