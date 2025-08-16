@@ -23,14 +23,8 @@ jobs:
           docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/ml:latest .
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/ml:latest
 
-      # 4. EC2 SSH 접속 → 최신 이미지 pull & 실행
-      - uses: appleboy/ssh-action@v0.1.10
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            sudo docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/ml:latest
-            sudo docker stop ml || true
-            sudo docker rm ml || true
-            sudo docker run -d --name ml -p 8000:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/ml:latest
+      # 4. EC2 안에서 바로 실행
+      - run: |
+          sudo docker stop ml || true
+          sudo docker rm ml || true
+          sudo docker run -d --name ml -p 8000:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/ml:latest
