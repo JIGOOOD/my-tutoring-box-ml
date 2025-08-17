@@ -1,4 +1,4 @@
-name: CI/CD to EC2
+name: Upload and Build Images
 
 on:
   push:
@@ -23,11 +23,10 @@ jobs:
           docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/ml:latest .
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/ml:latest
 
-      # 4. EC2 안에서 바로 실행
+      # 4. 서비스 레포와 배포 레포 연결
       - run: |
-          sudo docker stop ml || true
-          sudo docker rm ml || true
-          sudo docker run -d --name ml \
-            -p 8000:8000 \
-            -v /home/ubuntu/model:/code/model \
-            ${{ secrets.DOCKER_HUB_USERNAME }}/ml:latest
+          curl -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: token ${{ secrets.GH_TOKEN }}" \
+            https://api.github.com/repos/my-tutoring-box/my-tutoring-box-deploy/dispatches \
+            -d '{"event_type":"deploy"}'
